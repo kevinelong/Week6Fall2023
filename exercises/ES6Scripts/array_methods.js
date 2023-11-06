@@ -11,7 +11,7 @@ let cart = [
 // .reduce() ALWAYS returrns EXACTLY 1 item.
 
 // b. - total for cart incorporating quantity accumulator, current and initial
-console.log(cart.reduce((a, c) => a + (c.price * c. quantity), 0));
+console.log(cart.reduce((a, c) => a + (c.price * c.quantity), 0));
 
 // a. - map return only name/item and then forEach to display
 
