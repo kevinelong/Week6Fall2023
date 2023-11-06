@@ -3,7 +3,7 @@ function pickOneFromList(list = []) {
     // const max = list.length;
     // const r = Math.floor( Math.random() * max);
     // return list[r];
-    return list[Math.floor(Math.random() * list.length)];
+    return list[Math.floor(Math.random() * list.length)]; //ALL THREE LINES IN ONE
 }
 
 const fruit = ["Apple", "Banana", "Cherry", "DragonFruit", "Papaya"];
@@ -14,11 +14,11 @@ const fruit = ["Apple", "Banana", "Cherry", "DragonFruit", "Papaya"];
 //     "DragonFruit": 0,
 //     "Papaya": 0,
 // }
-const totals = {};
-for (let i = 0; i < 5000; i++) {
+const totals = {}; //EMPTY OBJECT WITH NO PROPERTIES
+for (let i = 0; i < 5; i++) {
     const f = pickOneFromList(fruit);
-    if(!totals.hasOwnProperty(f)){ //DOES PROPERTY NOT EXIST
-        totals[f] = 1;
+    if(!totals.hasOwnProperty(f)){ //DOES PROPERTY !*NOT* EXIST
+        totals[f] = 1; //SET INITIAL VALUE FOR A GIVEN FRUIT
     }else{
         totals[f]++; //BUMP IT UP BY ONE
     }
