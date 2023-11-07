@@ -11,7 +11,8 @@ let cart = [
 // .reduce() ALWAYS returrns EXACTLY 1 item.
 
 // b. - total for cart incorporating quantity accumulator, current and initial
-console.log(cart.reduce((a, c) => a + (c.price * c.quantity), 0));
+const cartTotal = cart.reduce((a, c) => a + (c.price * c.quantity), 0)
+console.log(cartTotal);
 
 // a. - map return only name/item and then forEach to display
 
@@ -27,6 +28,12 @@ cart.forEach(r => console.log(r.item));
 
 console.log(cart.map(r => r.item).join("\n")); //OR USE "\n" OR "\t" OR " " OR "<br>"
 //SORT BY EXTENDED PRICE
-const f3 = (a, b) => (a.price * a.quantity) - (b.price * b.quantity)
-const sorted = cart.sort(f3);
-console.log(sorted.map(r => r.item + " " + (r.price * r.quantity)).join("\n"));
+const fnByExtendedPrice = (a, b) => (b.price * b.quantity) - (a.price * a.quantity); // DESCENDING BIG to LITTLE
+const fnByQuantity = (a, b) => a.quantity - b.quantity; //ASCENDING (LITTLE TO BIG)
+const fnByPrice = (a, b) => a.price - b.price; //ASCENDING (LITTLE TO BIG)
+const sorted = cart.sort(fnByQuantity);
+
+const displayRow = (r) => {
+    return `${r.item}, ${r.quantity} * ${r.price} = ${r.price * r.quantity}`;
+}
+console.log(sorted.map(displayRow).join("\n"));
