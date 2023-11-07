@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        const urls = {
+            w3:"https://w3schools.com",
+            mdn:"https://developer.mozilla.org",
+            fcc: "https://www.freecodecamp.org"
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            // w3.addEventListener("click", () => window.location = "https://w3schools.com");
+            // mdn.addEventListener("click", () => window.location = "https://developer.mozilla.org");
+            // fcc.addEventListener("click", () => window.location = "https://www.freecodecamp.org");
+            const links = document.querySelectorAll(".link");
+            links.forEach(e => e.style.backgroundColor = "green");
+            links.forEach(e => e.addEventListener("click", e=>window.open( urls[e.target.id], "more", "popup")));
+        });        
+
+        //COULD USE A FOR-IN loop to create the buttons
+    </script>
+</head>
+<body>
+    <button id="w3" class="link">W3Schools</button>
+    <button id="mdn" class="link">Mozilla</button>
+    <button id="fcc" class="link">FreeCodeCamp</button>
+</body>
+
+</html>
