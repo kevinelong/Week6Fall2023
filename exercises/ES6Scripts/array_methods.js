@@ -26,3 +26,7 @@ cart.forEach(r => console.log(r.item));
 //cart.map(r => r.item).forEach(console.log); //LOGS NAME,INDEX,AND LIST EVERY TIME
 
 console.log(cart.map(r => r.item).join("\n")); //OR USE "\n" OR "\t" OR " " OR "<br>"
+//SORT BY EXTENDED PRICE
+const f3 = (a, b) => (a.price * a.quantity) - (b.price * b.quantity)
+const sorted = cart.sort(f3);
+console.log(sorted.map(r => r.item + " " + (r.price * r.quantity)).join("\n"));
