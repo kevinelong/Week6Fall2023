@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items:center;
+            justify-content:space-around;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-size: 3vw;
+            background-color: darkslategray;
+        }
+
+        .cell {
+            border: 1px solid black;
+            width: 3vw;
+            height: 3vw;
+            position: absolute;
+            background-color: silver;
+        }
+
+        .item {
+            color: green;
+            width: 3vw;
+            height: 3vw;
+            position: absolute;
+            padding: 0;
+            font-weight: 900;
+            text-shadow: 0 0 2px black;
+            transition: all ease-in-out 200ms;
+        }
+
+        .grid {
+            display: block;
+            width: 24vw;
+            height: 24vw;
+            position: relative;
+            transition: all ease-in-out 200ms;
+        }
+        #score{
+            color: darkgoldenrod;
+            font-size: 6vw;
+            padding: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="score" class="score">0</div>
+    <div id="grid" class="grid"></div>
+</body>
+<script>
+
+    const LIMIT = 8;
+
+    const list = [
+        { name: "Mouse", symbol: "M", color: "brown", x: 1, y: 1, gold:0 },
+        { name: "Mouse2", symbol: "2", color: "orange", x: 6, y: 1, gold:0 },
+        { name: "Cheese", symbol: "C", color: "gold", x: 6, y: 6 },
+    ];
+
+    function getCell(row, col) {
+        const e = document.createElement("div");
+        e.dataset.row = row;
+        e.dataset.col = col;
+        e.style.top = `${row * 3}vw`;
+        e.style.left = `${col * 3}vw`;
+        e.classList.add("cell")
+        return e;
+    }
+
+    function getItem(item) {
+        const e = document.createElement("div");
+        e.classList.add("item");
+        e.innerText = item.symbol;
+        e.style.color = item.color;
+        e.style.top = `${item.y * 3}vw`;
+        e.style.left = `${item.x * 3}vw`;
+        item.element = e;
+        return e;
+    }
+
+    for (let y = 0; y < LIMIT; y++) {
+        for (let x = 0; x < LIMIT; x++) {
+            grid.appendChild(getCell(y, x))
+        }
+    }
+
+    list.forEach(item => grid.appendChild(getItem(item)));
+
+    const m = list[0];//FIRST ITEM e.g. Mouse 1
+    const m2 = list[1];
+    const c = list[2];
+
+    document.addEventListener("keydown", e => {
+
+        //MAKE DECISION AND UPDATE DATA
+        if (e.code == "ArrowRight") m.x++;
+        if (e.code == "ArrowLeft") m.x--;
+        if (e.code == "ArrowUp") m.y--;
+        if (e.code == "ArrowDown") m.y++;
+
+        if (e.code == "KeyD") m2.x++;
+        if (e.code == "KeyA") m2.x--;
+        if (e.code == "KeyW") m2.y--;
+        if (e.code == "KeyS") m2.y++;
+
+        //COLLISION DETECTION
+        list.forEach(item1 => {
+            list.forEach(item2 => {
+                if (item1.x == item2.x && item1.y == item2.y && item1.symbol === "C"){
+                    //GIVE GOLD TO THE RIGHT MOUSE
+                    if(item2.symbol == "M") m.gold++;
+                    if(item2.symbol == "2") m2.gold++;
+                    if(item2.symbol == "M" || item2.symbol == "2"){
+                        //MOVE THE CHEESE
+                        c.x = Math.floor(Math.random() * 8)
+                        c.y = Math.floor(Math.random() * 8)
+                    }
+                }
+            })//inner loop item2   
+        })//outer loop item1
+
+        //UPDATE DISPLAY      
+        m.element.style.top = `${m.y * 3}vw`;
+        m.element.style.left = `${m.x * 3}vw`;
+
+        m2.element.style.top = `${m2.y * 3}vw`;
+        m2.element.style.left = `${m2.x * 3}vw`;
+
+        c.element.style.top = `${c.y * 3}vw`;
+        c.element.style.left = `${c.x * 3}vw`;
+
+        //UPDATE SCORE
+        score.innerText = `P1:${m.gold} P2:${m2.gold}`;
+
+    });//end keydown
+
+</script>
+</html>

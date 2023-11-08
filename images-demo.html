@@ -1,0 +1,17 @@
+<body>
+    <img src="#">
+    <img src="./images/fiona.jpg">
+    <img src="./images/shrek.webp">
+</body>
+<script>
+    // const list = document.getElementsByTagName("img");
+    const list = document.querySelectorAll("img");
+    list.forEach(item => item.title = item.src)
+
+    //ALTERNATE
+    list.forEach(item => {
+        parts = item.src.split("/");
+        fileonly = parts[parts.length - 1];
+        item.title = fileonly;
+    });
+</script>

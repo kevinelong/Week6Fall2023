@@ -1,0 +1,30 @@
+<style>
+    table, th, td{ border: 1px solid black;}
+</style>
+<body></body>
+<script>
+    const item = {
+        category: "Adventures",
+        id: "A101",
+        name: "Valley Hot Air Balloons",
+        description: "Enjoy a lovely hot air balloon ride over the valley at sunrise. Call 800-555-1212 to reserve a date/time after you complete your e-ticket purchase.",
+        location: "121 S. Main Street",
+        price: 265.00
+    }
+    function objectToTable(item){
+        const table = document.createElement("table");
+        for(key in item){
+            const value = item[key];
+            const rowElement = document.createElement("tr");
+            const headingElement = document.createElement("th");
+            const dataElement = document.createElement("td");
+            headingElement.innerText = key;
+            dataElement.innerText = value;
+            rowElement.appendChild(headingElement);
+            rowElement.appendChild(dataElement);       
+            table.appendChild(rowElement);
+        }
+        return table;
+    }
+    document.body.appendChild( objectToTable(item) )
+</script>
