@@ -6,26 +6,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-size: 3vw;
+            background-color: darkslategray;
+        }
+
         .cell {
             border: 1px solid black;
-            width: 3em;
-            height: 3em;
+            width: 3vw;
+            height: 3vw;
             position: absolute;
+            background-color: silver;
         }
 
         .item {
             color: green;
-            width: 3em;
-            height: 3em;
+            width: 3vw;
+            height: 3vw;
             position: absolute;
-            padding: 1em;
+            padding: 0;
             font-weight: 900;
             text-shadow: 0 0 2px black;
+            transition: all ease-in-out 200ms;
+        }
+
+        .grid {
+            display: block;
+            width: 24vw;
+            height: 24vw;
+            position: relative;
+            transition: all ease-in-out 200ms;
         }
     </style>
 </head>
 
-<body></body>
+<body>
+    <div id="grid" class="grid"></div>
+</body>
 <script>
 
     const LIMIT = 8;
@@ -40,8 +63,8 @@
         const e = document.createElement("div");
         e.dataset.row = row;
         e.dataset.col = col;
-        e.style.top = `${row * 3}em`;
-        e.style.left = `${col * 3}em`;
+        e.style.top = `${row * 3}vw`;
+        e.style.left = `${col * 3}vw`;
         e.classList.add("cell")
         return e;
     }
@@ -51,19 +74,42 @@
         e.classList.add("item");
         e.innerText = item.symbol;
         e.style.color = item.color;
-        e.style.top = `${item.y * 3}em`;
-        e.style.left = `${item.x * 3}em`;
+        e.style.top = `${item.y * 3}vw`;
+        e.style.left = `${item.x * 3}vw`;
+        item.element = e;
         return e;
     }
 
     for (let y = 0; y < LIMIT; y++) {
         for (let x = 0; x < LIMIT; x++) {
-            document.body.appendChild(getCell(y, x))
+            grid.appendChild(getCell(y, x))
         }
     }
 
-    list.forEach(item => document.body.appendChild(getItem(item)));
+    list.forEach(item => grid.appendChild(getItem(item)));
+
+    const m = list[0];//FIRST ITEM e.g. Mouse 1
+
+    document.addEventListener("keydown", e => {
+
+        //MAKE DECISION AND UPDATE DATA
+        if (e.code == "ArrowRight") m.x++;
+        if (e.code == "ArrowLeft") m.x--;
+        if (e.code == "ArrowUp") m.y--;
+        if (e.code == "ArrowDown") m.y++;
+
+        //UPDATE DISPLAY      
+        m.element.style.top = `${m.y * 3}vw`;
+        m.element.style.left = `${m.x * 3}vw`;
+
+        //COLLISION DETECTION
+        list.forEach(item => {
+            if (item != m && item.x == m.x && item.y == m.y) {
+                alert("boom");
+            }
+        })
+
+    });//end keydown
 
 </script>
-
 </html>
