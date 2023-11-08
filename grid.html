@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .cell {
+            border: 1px solid black;
+            width: 3em;
+            height: 3em;
+            position: absolute;
+        }
+
+        .item {
+            color: green;
+            width: 3em;
+            height: 3em;
+            position: absolute;
+            padding: 1em;
+            font-weight: 900;
+            text-shadow: 0 0 2px black;
+        }
+    </style>
+</head>
+
+<body></body>
+<script>
+
+    const LIMIT = 8;
+
+    const list = [
+        { name: "Mouse", symbol: "M", color: "brown", x: 1, y: 1 },
+        { name: "Cheese", symbol: "C", color: "gold", x: 6, y: 6 },
+    ];
+
+    function getCell(row, col) {
+        const e = document.createElement("div");
+        e.dataset.row = row;
+        e.dataset.col = col;
+        e.style.top = `${row * 3}em`;
+        e.style.left = `${col * 3}em`;
+        e.classList.add("cell")
+        return e;
+    }
+
+    function getItem(item) {
+        const e = document.createElement("div");
+        e.classList.add("item");
+        e.innerText = item.symbol;
+        e.style.color = item.color;
+        e.style.top = `${item.y * 3}em`;
+        e.style.left = `${item.x * 3}em`;
+        return e;
+    }
+
+    for (let y = 0; y < LIMIT; y++) {
+        for (let x = 0; x < LIMIT; x++) {
+            document.body.appendChild(getCell(y, x))
+        }
+    }
+
+    list.forEach(item => document.body.appendChild(getItem(item)));
+
+</script>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    *{
+        font-size: 4vw;
+    }
+    body{
+        margin:0;
+        padding:0;
+        
+    }
+    .link {
+        width: 33.33vw;
+        height: 33.33vw;
+        display: inline-block;
+        font-size: 1rem;
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        const urls = [
+            { name: "W3Schools", url: "https://w3schools.com" },
+            { name: "Mozilla", url: "https://developer.mozilla.org" },
+            { name: "FreeCodeCamp", url: "https://www.freecodecamp.org" }
+        ];
+
+        function makeLink(item){
+            const e = document.createElement("button");
+            e.style.backgroundColor = "green";
+            e.innerText = item.name;
+            e.classList.add("link"); //in case we want to style them later
+            e.addEventListener("click", e => window.location = item.url);
+            return e;
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const nav = document.querySelector("nav");
+            urls.forEach(item => nav.appendChild(makeLink(item)));
+        });
+
+    </script>
+</head>
+
+<body>
+    <nav></nav>
+</body>
+
+</html>
